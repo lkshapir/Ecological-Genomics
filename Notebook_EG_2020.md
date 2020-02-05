@@ -343,7 +343,11 @@ cd /data/project_data/RS_ExomeSeq/fastq/edge_fastq/pairedcleanreads/
 <div id='id-section26'/>   
 ### Entry 26: 2020-02-05, Wednesday.   
 
+*Picea albens*
 
+* Very large genome (19.6GB 1n)
+* 24 chromosomes (12 1n)
+* N50 = smallest contig at which the size of contigs that size and larger give you half the size of the total genome (half of the genome is assembled into large chunks): all of the contigs 101,375 bp and larger make up half of the genome 
 
 ------
 <div id='id-section27'/>   
