@@ -349,6 +349,30 @@ cd /data/project_data/RS_ExomeSeq/fastq/edge_fastq/pairedcleanreads/
 * 24 chromosomes (12 1n)
 * N50 = smallest contig at which the size of contigs that size and larger give you half the size of the total genome (half of the genome is assembled into large chunks): all of the contigs 101,375 bp and larger make up half of the genome 
 
+**Kill command in terminal:** `Ctrl-C`
+
+Pipeline, mapping and process files located in "myscripts" in repo - used 
+
+Run pipeline w/ mapping and process. sh files incorporated
+
+`bash mypipeline.sh `
+
+* Make sure to copy in pipeline commands before running!
+
+screen: runs commands in background
+
+`Ctrl-A + D` to detach from screen 
+
+check bwa progress on screen:
+
+`screen -r`
+
+
+
+
+
+
+
 ------
 <div id='id-section27'/>   
 ### Entry 27: 2020-02-06, Thursday.   
@@ -365,7 +389,51 @@ cd /data/project_data/RS_ExomeSeq/fastq/edge_fastq/pairedcleanreads/
 <div id='id-section29'/>   
 ### Entry 29: 2020-02-10, Monday.   
 
+***Genome-Wide Association Studies***(GWA's) - Info Update 
 
+* First study 2002 on myocardial infraction (beginnings in human genetics)
+
+Examples of GWA's in medicine
+
+* Complex genetic diseases (low inheritance)
+  * Diabetes, Parkinson's disease, heart abnormalities, Crohn's disease
+
+*Definition of GWA*
+
+* Whole-genome SNP analysis (case control)- case population vs. control -comparison of genetic variants
+* Which SNP's are most likely to be important given differences between two groups 
+* See if variants are connected to a particular trait 
+* Clusters of data points on Manhattan plots shows high association with particular position of SNP's and the trait you are analyzing = possible locations of responsible genes 
+* Higher difference between populations, higher peak on plot will be (more significant difference) 
+
+*GWA methodology*
+
+1. Making/finding populations that differ by a singular trait
+2. Using DNA techniques to capture data on genetic variants
+3. Making statistical inferences on nature of change 
+
+**Three potential sources of genetic differences:**
+
+		1. Causal impact of genetic variants (*great*)
+  		2. Close to causal genetic variants (due to crossover etc..) (*good*)
+  		3. Bias/Population bias (incorrect or messy sampling) (*bad*)
+
+*Problems with GWA's*
+
+* SNP's are not genes! (differences might not mean anything)
+* Complicated when heritability is low - distinctions between samples might become unclear, increased margin of error 
+* Ancestral association might cloud results- issues in smaller populations (contradictions to Wright-Fisher pops)
+
+How do we address these issues?
+
+*Fitting the data*
+
+$$\lambda_{expected}= (Median(Empirically observed observation)/ Median(expected)$$
+
+1. Correlated traits > joint GWAs analyses, principal component analysis (PCA) Genomic Control 
+
+2. Trait-structured extrapolation > SNP's > (Effective size, allele freq's)> phenotype
+   1. Ability to detect difference depends on population size and effect size of that allele 
 
 ------
 <div id='id-section30'/>   
