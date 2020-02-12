@@ -371,8 +371,6 @@ check bwa progress on screen:
 
 
 
-
-
 ------
 <div id='id-section27'/>   
 ### Entry 27: 2020-02-06, Thursday.   
@@ -445,7 +443,31 @@ $$\lambda_{expected}= (Median(Empirically observed observation)/ Median(expected
 <div id='id-section31'/>   
 ### Entry 31: 2020-02-12, Wednesday.   
 
+See your own .sam files in BWA file:
 
+` ll XDS*sam`
+
+.sam= sequence alignment file 
+
+Each row in the .sam file is a name of the contig found in the reference genome, line next to it is it's length 
+
+One row of data= one of the pair of reads mapped somewhere on the genome
+
+**File Name**
+
+```GWNJ-0842:368:GW1809211440:2:2224:29467:72965   163     MA_50874        6853    10      7S53M3S =       6987    283     CNAGGGCCANCGNGCNGATACTCTCCTTNGGCCAAGGATTGAGTAGCCNAGAACACAAACNNT    A#AFFJJJJ#JJ#JJ#JJJJJJJJFJJJ#JJJFFJJJJJJFJJJFJJJ#JJ<JJJJJJJJ##F    NM:i:7  MD:Z:2G2A2A11C0T1A17T11 AS:i:33 XS:i:36 ```
+
+* GWNJ...= name of file 
+* 163 = flag (how the read behaves during mapping): use http://broadinstitute.github.io/picard/explain-flags.html to explain meaning of flag numbers
+* 10 = base quality score (higher quality scores are better)
+
+Get stats on .sam files > use `samtools flagstat filename`
+
+Use loop to get stats on all XDS files - calculate  using `filename sorted rmdup.bam` files + `.bai` file (index)
+
+* `awk` - strips out only files that we need
+
+Use ANGSD to calculate nucleotide diversity (Watterson's theta [# of segregating sites], Tajima's D), $F_{st}$ between populations from genotype likelihoods (GL's) 
 
 ------
 <div id='id-section32'/>   
