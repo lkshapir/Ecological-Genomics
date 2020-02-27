@@ -414,7 +414,7 @@ Examples of GWA's in medicine
 
 		1. Causal impact of genetic variants (*great*)
   		2. Close to causal genetic variants (due to crossover etc..) (*good*)
-  		3. Bias/Population bias (incorrect or messy sampling) (*bad*)
+                		3. Bias/Population bias (incorrect or messy sampling) (*bad*)
 
 *Problems with GWA's*
 
@@ -497,7 +497,11 @@ Use ANGSD to calculate nucleotide diversity (Watterson's theta [# of segregating
 <div id='id-section36'/>   
 ### Entry 36: 2020-02-19, Wednesday.   
 
+Estimating rough SFS > `.sfs` > Estimate SFS using `.sfs` as a prior (more robust)> doTheta ($\theta$) > theta_stats 
 
+Tajima's D shows that the bottleneck occured before the populations were fragmented (they all share a similar positive value)
+
+- check reads from flagstat (2.5 million reads with 60% mapping)
 
 ------
 <div id='id-section37'/>   
@@ -514,6 +518,98 @@ Use ANGSD to calculate nucleotide diversity (Watterson's theta [# of segregating
 ------
 <div id='id-section39'/>   
 ### Entry 39: 2020-02-24, Monday.   
+
+**Transcriptomics**
+
+* Ecological Genomics: Population genetics (p+q, Coalescent theory) + Molecular Evolution (Tajima's D, $\theta$, SFS, $\pi$), Ecology + Next Gen Sequencing Methods
+
+Transcriptomics at epicenter of interacting factors 
+
+​	Experimentally hold/control envrionmental conditions constant to reveal genetically controlled differences of phenotypes at the molecular level (expression)
+
+*Phenotypes*
+
+​	-Characterisitics of an organism that are observable 
+
+Examples, observable at different scales:
+
+* Color (morphological scale)
+* Disease resistance/ suseptibility (@ cellular/molecular level)
+
+*Central Dogma of Molecular Biology*:
+
+DNA -(transcription)> RNA -(translation)> Protein --> **Phenotype** (natural selection acts on)
+
+*Reverse ecology*: Genetic signatures describe phenotype natural selection is acting on 
+
+-Changes in phenotype:
+
+Mutations! 
+
+* Mutations in DNA coding regions that alter proteins
+* Splice sit variation 
+* Promoters and enhancers 
+  * Expression level 
+  * Timing of expression 
+  * cell/tissue type where expressed 
+  * Conditions under which a gene is expressed
+
+Post-translational modifications (phosphorylation)
+
+Epigenetic modifications 
+
+* Methylation, histone modification etc..
+
+Transcriptomics focuses on population of RNA in a cell after transcription 
+
+* gives active picture of what is expressed in a cell at a given time under particular conditions 
+* global unbiased picture of material (qPCR)
+* much cheaper to focus on RNA than [for example] proteomics studies (Illumina)
+* de novo transcriptome 
+
+P = G + E + (GxE)
+
+-In transcriptomics, E is controlled so information on G can be clearly extracted
+
+-<u>Experimentally induce</u> your phenotype of interest
+
+​				**-> ** Molecular underpinnings of our phenotype 
+
+
+
+Question-hypothesis 
+
+**<u>Factors</u>**
+
+* Common garden 
+  * Controlling environmental conditions
+* Treatments/ conditions you are interested in studying 
+  * related to phenotype of interest
+* Populations 
+* Tissue, cell type (expression may vary depending)
+* Life History stage
+* Transgenerational environment 
+* Sex/ reproductive stage
+
+*Workflow*
+
+1. Careful experimental design 
+
+   1. Question, hypotheses, broad 'omics, *a priori* hyp.
+   2. Factors
+
+2. Experiment
+
+   1. Sample tissues and individuals 
+   2. Save RNA quickly! 
+   3. Extract, prepare, sequence (whole mRNA, miRNA, 3' tag [good for magnitude of expression])
+
+3. Process and analyze data
+
+   1. Check quality, clean, recheck quality (working with `.fastq` files)
+2. Map to reference, extract count data
+   3. Normalize for variation among samples (for some that have less or more data) > forms count data matrix, associated with factors (population, tissue, etc...) - test association between expression and factors using ANOVA 
+4. Integrate: GO, Network analyses, SNP, TajD, microbiome, epigenetic...
 
 
 
