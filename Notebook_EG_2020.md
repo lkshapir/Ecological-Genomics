@@ -641,9 +641,108 @@ Question-hypothesis
 <div id='id-section44'/>   
 ### Entry 44: 2020-03-02, Monday.   
 
+<u>**Sea Cucumber Discussion Notes**</u>
 
+Intro:
 
-------
+This paper chose to look at the expression response to change in hydrostatic pressure marine invertebrate (*Apostichopus japonicus)*. Because of the effects of anthropogenic climate change, many shallow water marine invertebrates (live in gravel beds slighly offshore) may be forced to greater oceanic depths as a response to increasing surface (and deeper temperature) shifts. Typically we think of organisms contracting or changing their ranges in response to climate in terms of latitude (or altitude, which is a similar terrestrial parallel) but not bathymetry, which has an added element that these organisms must respond to large changes in pressure, along with oxygen content. In addition, we also don't really consider the physical (in terms of actual physics)(or mechanical) effects of pressure on cells and therefore how this might in turn affect expression- the authors discuss the strengthening of hydrogen bonds under pressure- which may affect processes related to genetic structure (replication, tranlation, etc..) or how the membrane might responsd to pressure. In fact, organisms that are deep-sea adapted are though to have experienced a population bottleneck imposed by physiological limitations in temeperature and pressure, and these factors in conjunction likely limit deeper water transitions of shallow groups.  This paper attempts to look at DEG's (differentially expressed genes) and pinpoint those expressed and attempt to connect them to their specific functional pathways/make functional claims to unveil molecular mechanisms by which these cucumbers might be able to acclimatize (or not) depending possibly on whether they exhibit some sort of phyisiological plasticity in terms of depth response, and they wanted to use a model organism that had both known shallow and deep water members. They compare the expression of DEG's between different pressure treatments (so 25 MPa (246 Atm- depth at and 2500 m: midnight zone),15 Mpa (148 Atm-depth at 1500 m: twilight zone) to a control group not under pressure (0.1MPa=1atm)), and categorize them based on expression patterns (categorized into LRG's, PSG's, and HPG's. We are focusing on the expression response to this deep sea immersion, which genes are up-regulated or down-regulated in this process..etc.... **At the cellular level increases in hydrostatic pressure can have drastic structural and metabolic consequences, including changes in membrane composition- the regulation of these elements may therefore be something that can be seen the differential expression of certain genes**. They used a widespread temperature shallow sea cucumber in this study- *Apostichopus japonicus* *, because it was assumed it contained a homologous gene set to other deep sea sea cucumbers and had the potential to acclimatize (or else they would have just killed off all of their subjects). An important distinction I think is that they are not saying this species might as well be a deep sea species, but rather that it has a chance to *acclimatize*. 
+
+**Methods**
+
+Their methods section is a little messy, they seem to have split it up kind of funny.... So they collected their specimens from an aquaculture farm. First I think this is a little sketchy- 
+
+* I think that farmed specimens might show some inprint of artificial selection in their transcriptome if these were being farmed for food- differential gene expression between farmed/ natural pops? Has been shown in salmon . 
+* Provided standard salinity and light, fed with algae. Experimental individuals were starved as to tease out metabolism pathwaysconcerning food intake (?)- 
+* Tried to test @ 35Mpa, but individuals died so they used 15 MPa or 25 
+*  Acclimatized to recover from stress for two weeks 
+* Temperature was maintained at 15 degrees (within ideal range for this species) in a water bath in the pressure container
+* Placed three cucumbers in water chamber, pressure was increased at 1 MPa per minute to either experimental pressure (15 or 25 MPa (148 or 246 Atm))- what depths do these correspond to?
+* Pressure released immediately after 24 hours, they were flash frozen immediately in liquid nitrogen- stored for RNA extraction
+* Used body wall tissue for RNA extraction (I don't know much on sea cucumber anatomy/ tagmata like last week), utilized RNA-Seq for library prep and extraction, sequenced using Hi-Seq, generated 150 bp paired end reads
+* Transcripts were assembled using Trinity, checked using BUSCO, unigenes were identified and annotated into databases
+* Unigenes annotated using KAAS (KEGG Automatic Annotation Server) + diamond +HMMER > annotates functional genes via BLAST amino acid comparison
+* Calculated FPKM (unit of gene expression that normalizes depth and coverage- "fragments per kilobase of exon per million reads mapped")- for each gene used for paired end reads as opposed to RPKM (reads...) because two reads could be a fragment in paired end....
+* **Used DESeq2 to identify DEG's** 
+  	1. Estimate gene-wide dispersion (higher for small mean counts) - **DeSEq2 used to estimate DEG's between P15 and P0.1,P25 and P0.1, and P15 and P25**
+   	2. Generate estimates of within group variation for each gene (3 individuals in each treatment)
+   	3. Share info on variation across genes to get more info (similar expression=similar dispersion)
+   	4. Given count values of replicates, most likely estimate of dispersion is calc. 
+   	5. Plot expected dispersion values for genes of given expression strength (based on read counts)
+   	6. Shrink toward predicted values (increase accuracy in small sample sizes) more samples=less shrinkage
+   	7. Low dispersion w/ low read count= brought closer to curve
+   	8. Negative binomial distribution fitted for each gene, p values and fold change ID'd > DEG's had a p value of <0.01 (significant) and a  cutoff |fold change| (between treatments) >1 (upregulated or down regulated)
+ * Pfam + KEGG Enrichment (=overrepresented in the set) Analysis to identify biological processes/ pathways in each test group
+    * Based on functional annotations (using KAAS) of genes 
+    * KOBAS system Generates a set of statistically enriched or common pathways related to input gene pulled from KEGG data (databases of known, drawn pathways) 
+    * Used Fisher's exact test (test for nonrandom assocation between two variables) for testing statistical significance (or else there would be a high chance any of these DEG's would correspond to a pathway)- only in Pfam
+    * Also annotated genes in Pfam (are gene family and protein family analogous?)- separately analyzed each group of DEG's using fisher.test (to find statistically significant (enriched) protein/gene families via Pfam database)
+
+**Results**
+
+-Considered up-regulated genes as activated - only essential (up-regulated) processes can be maintained
+
+***Fig. 1<img src="/Users/lilyshapiro/Desktop/Screen Shot 2020-03-01 at 8.31.38 PM.png" alt="Screen Shot 2020-03-01 at 8.31.38 PM" style="zoom:25%;" />*** 
+
+There were 542 up-regulated genes between P25 and P15, 1375 between P25 and P0.1, and 598 between P15 and P0.1. Linear related DEG's were expressed in all groups (genes that were up-regulated under any pressure increase), Pressure-sensitive DEG's were genes up-regulated in each of the pressure treatments compared to the control, and High Pressure DEG's were genes up-regulated across pressure treatments after transition to high pressure. Other numbers are genes up-regulated in each group independent of pressure
+
+ <img src="/Users/lilyshapiro/Desktop/Screen Shot 2020-03-01 at 8.45.24 PM.png" alt="Screen Shot 2020-03-01 at 8.45.24 PM" style="zoom:25%;" />
+
+**Fig 2**: LRG's were linearly up-regulated with increasing pressure (between pressure treatments or with comparisons with the control). Points here represent the fold change in expression between all genes (so all were positively up-regulated)- Change in expression from 15 to 25 is balanced off, although these genes were still up-regulated (not as much). Smaller change in expression from 15 to 25 mPa in pressure-sensitive DEG's. High pressure- induced genes showed little expression up to 15 MPa, but then were highly upregulated to 25 MPa (expression triggered by high pressure). *Where is the shift boundary?*
+
+![Screen Shot 2020-03-01 at 9.38.40 PM](/Users/lilyshapiro/Desktop/Screen Shot 2020-03-01 at 9.38.40 PM.png)
+
+**Fig 3:** Heatmaps of DEG's that were annotated in Swiss-Prot. Red = highly upregulated. Genes associated with LRG's (linearly up-regulated w/ pressure, can see based on temperature change in heatmap) +Genes associated (mostly homeostasis), DEG's associated with PSG's (pressure-sensitive), little change between P15 + P25, mostly homeostasis + signal transduction, + DEG's associated with High pressure, all significantly up-regulated at P25 (wow!), mostly annotated for homeostasis and genetic info processing
+
+**LRG's** (14/38) annotated in Swiss-Prot database associated with
+
+1.  **homeostasis maintenance** [3=ubiquitination[marks for degradation, movement],heat shock protein,antioxidative, kinase for innate immunity], 
+2. **lysosomal activities** 
+3. energy metabolism
+4.  lipid metabolism
+
+Is LRG biased b/c it includes strong difference in expression for HPG's??
+
+**PSG's** (70/244) annotated in Swiss-Prot database associated with
+
+1. **Homeostasis maintenance** (15) [6=Stress response (DNA Damage response, unfolded protein response, 6=Immnune response, 2=apoptosis, 3=ubiquitination]
+2. **Signal transduction** (15) [7 in transcription]
+3. **Genetic information processing** (12)
+4. Lysosomal activities (5)
+5. Lipid metabolism (2)
+6. Other (16)
+
+**HPG's** (123/257 annotated) in Swiss Prot database associated with > **most annotated, what is this a factor of?**
+
+1. **Homeostasis maintenance** (23) [13=ubiquitination, 8=stress response]
+2. **Genetic Information Processing** (22) [12=transcription, 7=translation]
+3. Signal transduction
+4. Lysosomal activities
+5. Membrane-related function
+6. Lipid metabolism
+7. Others (unidentified?)
+
+**More effort to maintain homeostasis under stress= more upregulation of homeostatic genes**
+
+**Similar up-regulation of genes associated with particular processes across DEG's (homeostasis, antioxidation,stress response)**
+
+**Genes involved in ubiquitination pathways are very diverse, hard to pin down to deep-sea expression/acclimatization responses**
+
+Interesting to me that there wasn't a greater response to stress. Also, this experiment could be tested at different life stages? Or with other organisms that also have deep-sea counterparts? 
+
+![Screen Shot 2020-03-01 at 10.15.11 PM](/Users/lilyshapiro/Desktop/Screen Shot 2020-03-01 at 10.15.11 PM.png)
+
+Fig 4: we don't have to go over the whole pathway, but basically this is the only statistically enriched pathway the author's found for all of the DEG groups combined-so 17 of the total DEG's associated with pressure were found to correspond with this molecular pathway in the KEGG database, which is and endocytotic pathway. The Red boxes represent the genes upregulated  (corresponding proteins in supplemental materials) at high pressure 
+
+Diverse functionality in cells, endocytosis found to be significant pathway in HPG's, and in all subdivisions of DEG's  > **Endocytosis facilitates faster development of a symbiotic system in deep-adapted organisms (? don't know if this is too specific)** Ubiquitination + Endocytosis may act together to regulate elimination of misfolded proteins
+
+![Screen Shot 2020-03-01 at 11.26.38 PM](/Users/lilyshapiro/Desktop/Screen Shot 2020-03-01 at 11.26.38 PM.png)
+
+**Fig. 5:**Displaying results of gene/ protein family analysis (Pfam enrichment). Gene families that are significantly associated with each of these DEG categories. 13 gene families enriched in LRG's, 13 gene families enriched in PSG's (about half of these are involved in transcription), and 20 gene families (!) enriched in HPG's (6 of which are involved in genetic info functionality- graph's show the number of genes in each family (circles, colored by p-value). The list of families is on the y axis- genes are grouped in families based on the function of the proteins they encode for. Rich factor is bascially describing the representation of the DEG's in that particular family out of all of the genes in that family- so higher numbers mean that particular group of DEG's is more enriched, more represented. YOu can see that there are more groups within the HPG's that are enriched (and more gene families overall)- maybe these gene families are smaller overall? Or not because the x axis is scaled smaller? 
+
+**Gene families having to do with genetic information, particularly transcirption are overall enriched- high pressure strengthens H-bonds and can impede genetic info processes, these might be upregulated- found to be positively selected in other deep-sea organisms, might also need high frequencies of DNA repair**
+
+I think the physical effects of deep sea compression on physiology and the genomic response to this is super interesting and not usually considered (the actual physics) affecting DNA bonds or membrane structure (actual cellular physical transformation) that might lead to a change in expression. I don't think there have been many studies of this kind, this one is brand new (2020), and I think it's an interesting future prospect. I would like to see more studies on various groups, and maybe comparing different genera of the same family to see differential responses. Also comparison of temperature to tropical species, at different life stages, etc....long term studies. How can we streamline transcriptomics/ gene orthology studies? Combined effect of temp and pressure looking for genes involved in preventing anoxia? 
+
 <div id='id-section45'/>   
 ### Entry 45: 2020-03-03, Tuesday.   
 
@@ -653,7 +752,62 @@ Question-hypothesis
 <div id='id-section46'/>   
 ### Entry 46: 2020-03-04, Wednesday.   
 
+**Coding work**- Pops by treatment: ESC_01_C*
 
+-Create a for-loop so `salmon` can quantify transcript abundance + compare them to a reference genome (*P. abies*)
+
+- Set working directory to location of cleaned reads
+- For each file in the cleaned reads directory, run salmon 
+- Set reference genome after -i
+- Set reads after -r, specify directory to clean reads, follow with specific file
+- Output to salmon/cleanedreads
+- Script to run salmon found in:  `~/Documents/Github/Ecological-Genomics/myscripts/salmon.sh`
+
+Output of salmon: Mapping rate to reference (in `.log` file)
+
+Mapping rate for ESC_01_C_0_CAGATG_R1.cl.fq = **3.16742%**
+
+<u>*new Mapping Rate (w/ all reference): **33.6983%***</u>
+
+Mapping rate for ESC_01_C_10_ACAACG_R1.cl.fq= **2.89247%** *(% of reads mapped to reference with high confidence, based on homology from BLAST between red-spruce and white spruce)*
+
+<u>*new Mapping Rate: **28.6074%***</u>
+
+* Mapped to high quality reference genome, lowered `kmer` parameter to allow mapping of smaller fragments, need to use unadjusted reference (no lowering of `kmer` to allow small fragment mapping)
+* Changed output directory to "allmapping", changed reference to "Pabies_cds_index"
+
+> Completed in bash using R code (not RStudio)
+
+```
+library(tximportData)
+library(tximport)
+
+#locate the directory containing the files. 
+dir <- "/data/project_data/RS_RNASeq/salmon/"
+list.files(dir) #Lists files in directory
+
+# read in table with sample ids
+samples <- read.table("/data/project_data/RS_RNASeq/salmon/RS_samples.txt", header=TRUE) #Use to line up sample names with quant.sf files
+
+# now point to quant files
+all_files <- file.path(dir, samples$sample, "quant.sf")
+names(all_files) <- samples$sample
+
+# what would be used if linked transcripts to genes
+#txi <- tximport(files, type = "salmon", tx2gene = tx2gene)
+# to be able to run without tx2gene
+txi <- tximport(all_files, type = "salmon", txOut=TRUE)  
+names(txi) #We used this, had not linked transcripts to genes 
+
+head(txi$counts)
+
+countsMatrix <- txi$counts
+dim(countsMatrix)
+#[1] 66069    76
+
+# To write out
+write.table(countsMatrix, file = "RS_countsMatrix.txt", col.names = T, row.names = T, quote = F) 
+```
 
 ------
 <div id='id-section47'/>   
