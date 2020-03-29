@@ -1,4 +1,4 @@
-Github Notebook Ecological Genomics
+YGithub Notebook Ecological Genomics
 
 ## Author: Lily Shapiro 
 ### Affiliation: UVM 
@@ -885,6 +885,87 @@ write.table(countsMatrix, file = "RS_countsMatrix.txt", col.names = T, row.names
 <div id='id-section59'/>   
 ### Entry 59: 2020-03-23, Monday.   
 
+**Info Update**: Integrating Biological Data Types
+
+<u>Types of Data:</u>
+
+-Gene expression 
+
+	* Counts (normalized by length)
+	* Quantitative trait
+
+-Sequence data
+
+- Fastq, SNPs, QTL (quantitative trait loci: position of loci/ gene that maps directly to quantitative trait)
+- $\pi$, $\theta$, AMOVA
+
+-Environmental data
+
+	* Stress exposure, temperature gradient
+	* Discrete, continuous, well-ordered 
+
+-Gene copy number (in some samples, there will be more than one copy of a gene compared to the reference) (**CNV= "copy number variants"**)
+
+	* Form of duplication/ deletion
+	* Alignment depth reads 
+	* Relative to a reference genome 
+	* Common to remove short CNV's, or overly widespread CNV's
+
+-Functional enrichment (GO)
+
+-Chromatin state 
+
+	* accessible/ not accessible
+	* specific histone modifications
+
+<u>Types of Interactions</u>
+
+-Expression counts with discrete factors  (environment, stress treatment, chromatin state)
+
+P = GxE x......
+
+-Chromatin state influences transcription access, influences expression
+
+-Requires observations for each comb of levels
+
+-Expression vs. continuous factors (pop diversity, env. gradients)
+
+-Requires acceptance of a model for 'missing' observations/ holes in data (especially for statistical tests)
+
+-Expression vs. GO terms
+
+	* Useful for detecting under/over represented genes
+	* Helps detangling causal relationships in DE data
+
+-Gene- phenotype mapping
+
+* Change in gene/ set of genes causes change in trait
+* QTL > trait mapping
+* GRN (gene regulatory network)- directed edges as DE in target node
+
+-'Genotype networks'
+
+<u>Analysis</u>
+
+- Expression vs. discrete factors 
+
+- Two-way ANOVA 
+
+  - cont ~ 2 + discrete factors + interactions 
+  - Two factor ANOVA: $Y_{ijk} = \mu + \alpha_i + \beta_j + \gamma_{ij}+ \epsilon_{ijk}$
+  - $\mu$= intercept, $\alpha_i$=independant effect of factor j, $\beta_j$=independant effect of factor i, $\gamma_{ij}$=non-additive effects, $\epsilon_{ijk}$= error ~ $N(\theta, G)$
+
+- ANCOVA
+
+  - add "nuisance" variable, allowed to be a covariable in analysis
+
+- Expression vs. continuous
+
+  - Correlation (p)
+  - Linear/ higher order regression 
+  - Canalization 
+  - Modularity
+    - Pleiotropic effects within modules
 
 
 ------
@@ -896,6 +977,72 @@ write.table(countsMatrix, file = "RS_countsMatrix.txt", col.names = T, row.names
 ------
 <div id='id-section61'/>   
 ### Entry 61: 2020-03-25, Wednesday.   
+
+**<u>Epigenetics Introduction</u>**
+
+* Changes to gene expression that are not due to changes in DNA sequence
+* Stable, long-term alterations in the transcriptional potential of a cell that are not necessarily heritable
+  * **What accounts for differences in heritability of epigenetic modifications between taxa (mammals vs. metazoans)**?
+* $V_p=V_G + V_E + V_{GxE}$ : *Phenotypic Variation= Genetic Variation + Epigenetic Variation + Interaction*
+* Response to the environment
+* Genetic variation directly influences epigenetic variation (some organisms can't methylate), but epigenetic variration regulates some elements of genetic variation (transcriptional elements...etc..)
+
+<u>Mechanisms of epigenetics:</u>
+
+* Phosphorylation
+* non-coding RNA's (microRNA's)- bind to mRNA's and degrade them
+* small interfering RNA's
+* Histone modifications
+* DNA methylation- probably easiest to quantify, important in regulating gene expression and histone modifications **
+
+Addition of methyl group ($H_3C$) to cytosine > can lead to mutation in the genome (thymine created by deamination can't return to cytosine as Uracil can return to cytosine = lack of cytosine in the genome)
+
+<u>Functional consequences of methylation</u>
+
+* Promoters/enhancers
+  * High methylation = repression of expression
+  * Inhibits binding of TF's
+  * Chromatin structure
+* Intergenic
+  * Silencing TE's (transposable elements), etc..
+* Gene body
+  * Genes with low methylation levels, are more responsive to the environment/ environmental change (expression is not stabilized by methylation in gene body)
+
+Methylation differs between species> most have lack of methylation in promoter regions so they are able to regulate expression in these regions
+
+Gene bodies are generally more highly methylated 
+
+<u>Bisulfite sequencing</u>
+
+* Main way of quantifying methylation patterns in the genome
+* Addition of sodium bisulfite, we force conversion of cytosine to uracil, but this cannot occur with methylated cytosine (can quantify percentage change to U's in genome) > PCR amplify, converted to T's - quantify percent methylation at each converted site 
+
+**Copepod Experiment:**
+
+- How does *A. tonsa* react to changing environments- how are epigenetic responses entangled in this response?
+- Field collected, maintained in lab for 3 gens before division into treatments > completely independant biological replicates for each treatment
+- Used bisulfite sequencing in small chunks of the genome, focused on CpG sites 
+- Use *E. coli* to check efficiency of bisulfite conversion (should be all converted in *E. coli* because it is not methylated )
+
+Pipeline:
+
+1. Visualize w/ FastQC, trim w/ Trimmomatic, Visualize again with FastQC
+
+FastQC files for bisulfite sequencing files are enriched in T's, intermediate A's and G's and low C values > bisulfite conversion gets rid of unmethylated C's, results in a lot of T's > "more methylation towards the end"= actual adaptor contamination error (sequencing into the adaptor, which has normal patterns of GC content) > this is removed after trimming (consistent pattern across read)
+
+* Align sample w/ bismark! 
+* Use a screen!
+* 
+
+
+
+
+
+
+
+
+
+
 
 
 
