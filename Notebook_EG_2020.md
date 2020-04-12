@@ -967,7 +967,6 @@ P = GxE x......
   - Modularity
     - Pleiotropic effects within modules
 
-
 ------
 <div id='id-section60'/>   
 ### Entry 60: 2020-03-24, Tuesday.   
@@ -1062,9 +1061,80 @@ FastQC files for bisulfite sequencing files are enriched in T's, intermediate A'
 <div id='id-section64'/>   
 ### Entry 64: 2020-03-30, Monday.   
 
+**<u>Analysis of Epigenetic Variation Info Update</u>**
+
+* DNA Methylation: modification resulting from the covalent addition of a methyl group to a cytosine
+* *DNA hemimethylation* is when only one of the two complementary strands are methylated
+
+**AFLP (Amplified Fragment Length Polymorphism)** 
+
+Protocol:
+
+* Digestion of genomic DNA with MseI and EcoRI (digestive enzymes)
+* Ligation of adaptors to sticky ends with T4 DNA ligase
+* Preselective PCR amplification with EcoRI primer and MseI primer (just a few selected fragements)
+* Selective PCR > primers selected for specific sequences (selectively amplifying particular targets)
+* Electrophoretic separation of amplified DNA fragments
+* Scoring and interpretation of the data (generation of AFLP profile)
+
+Advantages of AFLP:
+
+* Generations large number of marker fragments
+* Requires small amounts of starting template
+* High reproducibility
+* Sensitive for detecting polymorphism at the level of DNA sequence
+* Assess genetic diversity within species or among closely related species
+
+**Methylation Sensitive Amplification Polymorphism (MSAP)**
+
+* Uses two methylation-sensitive isoschizomers (MspI and HpaII) as frequent cuters, each in combo with EcoRI in parallel reactions- two cutters recognize the same sequence but differ in sensitivity
+  * HpaII only recognizes hemi-methylated sites @ external cytosine ($^{HMe}CCG$), while MspI only recognizes sites hemi or fully methylated at the internal cytosine ($^{HMe}CG$ or $^{Me}CG$)
+  * Sites fully methylated at the external cytosine ($^{Me}CG$) or hemi or fully methylated at both internal and external cytosines are not cut by either enzyme. However, CCGG-sequences free of any methylation are digested by both
+
+Methylation States of the Restriction Sites
+
+* Condition 1= fragments present in both profiles, indicating an umethylated state 
+* Condition II = fragments are present in only EcoRI/MspI profiles indictiatng $^{HMe}CG$ or $^{Me}CG$ sites 
+* Condition III = fragments are present only in the EcoRI/HpaII profiles indicating $^{HMe}CCG$ sites
+* Condition IV = complete absence of fragments in both profiles 
+
+MSAP Scoring Approach:
+
+* Don't consider Condition IV, give a presence/ absence score for each condition (unmethylated=1 (everything else is 0), $^{HMe}CG$ or $^{Me}CG$ =1 for Condition II, $^{HMe}CCG$= 1 for Condition III)
+
+**Shannon-Wiener Diversity Index (H)**
+
+* Measure of diversity that combines species richness (number of species in a given area) and their relative abundances 
+* Shannon index increases as both the richness and evenness of the community increases 
+  * $H^{'}_{epi}=-\sum(p_i log_2 p_i)$
+  * $P_i$ is the frequency of the epigenetic marker score '1' within the population 
+  * Lots of loci @ relatively evenly spread, maximizes diversity score 
+
+**Nei's Genetic Diversity**
+
+* Index for measuring genetic distance 
+* Genetic distance **between populations ** is defined in terms of differences in allele frequencies for all loci analyzed 
+* Standard genetic distance $(D_s)=-Log_2I$
+* Where I is normalized identity: probability that a randomly chosen allele from each of two different population will be identical > I is based off present/absence of bands 
+
+**AMOVA (Analysis of Molecular Variance)**
+
+* Uses molecular markers to show how much genetic differentiation is due to differences between pops, between samples within pops, or within samples 
+
+**RDA and dbMEM**
+
+* Redundancy analysis (RDA) is a method used to extract and summarize the variation in a set of response variables that can be explained by a set of explanatory variables
+* distance-based Moran's eigenvector map analysis (dbMEM) spatial eigenfunction method- decomposes spatial structure of the dataset 
+
+
+
+Won't the grazing intensity figure be highly population correlated anyway? is this why we see such straight vertical pont lines on these graphs?
+
 
 
 ------
+
+
 <div id='id-section65'/>   
 ### Entry 65: 2020-03-31, Tuesday.   
 
@@ -1073,6 +1143,43 @@ FastQC files for bisulfite sequencing files are enriched in T's, intermediate A'
 ------
 <div id='id-section66'/>   
 ### Entry 66: 2020-04-01, Wednesday.   
+
+**Epigenetics Day 2**
+
+- Later samples have lower number of individuals, really decreases mapping rate (early samples have higher numbers of indiv.)
+- Extract methylation calls > What are the overall methylation rates? > Extract methylation reports 
+
+Bismark mapping report: https://github.com/PespeniLab/Ecological-Genomics/blob/master/Epigenetics_AA_F00_2_1_bismark_bt2_PE_report-ALL_SITES.html
+
+Alignment stats:
+
+-Alignment to top and bottom strands are equal
+
+-Can see numbers of unique mapping
+
+**M-Bias Plot**
+
+-Black = CpG methylation rate, other dark lines are other methylation rates 
+
+-You would expect equal methylation rates across the read - spike at beginning is expected due to cutting by enzymes @ CpG sites (but they might not have increased methylation)- we should cut these out. Dip in read two compared to spike in read 1. Probably a technical/ not biological issue
+
+What do coverage files look like?
+
+Column 1: Chromosome 
+
+Column 2: Start position of the base we are interested in, 
+
+Column 3: Stop position of base (same number, we are only looking at a specific SNP [number of methylated sites at that SNP])
+
+Column 4: Methylation percentage
+
+Column 5: # Methylated cytosines
+
+Column 6: # Unmethylated cytosines
+
+
+
+
 
 
 
